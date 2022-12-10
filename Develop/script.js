@@ -22,13 +22,89 @@ $(function () {
   })
 
 
-  // TODO: Add code to apply the past, present, or future class to each time
+  // Add code to apply the past, present, or future class to each time
   // block by comparing the id to the current hour. HINTS: How can the id
   // attribute of each time-block be used to conditionally add or remove the
   // past, present, and future classes? How can Day.js be used to get the
   // current hour in 24-hour time?
   //
 
+  // Get current hour
+  var currenthour = dayjs().format("hA")
+  var currenthournumber = dayjs().format("h")
+
+  // Check AM/PM of current hour
+  if (currenthour.substr(-2) == "AM"){
+    var currentAM = true
+  }
+  else{
+    var currentAM = false
+  }
+  
+  // Check hour of each div against current hour (every second?)
+  // hrs 9-12am
+  for (var i=9 ; i < 13; i++){   
+    //check if given div hour is AM/PM
+    if ($(`#hour-${i}`).text().trim().substr(-2) == "AM"){
+      var divAM = true
+    }
+    else{
+      var divAM = false
+    }
+    
+    // If both are AM/PM, compare numbers
+    if (currentAM === divAM){
+      if(Number($(`#hour-${i}`).attr('id').substr(5)) < Number(currenthournumber)){
+        (`#hour-${i}`).addClass("past")
+      }
+      else if (Number($(`#hour-${i}`).attr('id').substr(5)) == Number(currenthournumber)){
+        $(`#hour-${i}`).addClass("present")
+      }
+      else if (Number($(`#hour-${i}`).attr('id').substr(5)) > Number(currenthournumber)){
+        $(`#hour-${i}`).addClass("future")
+      }
+    }
+    //If current time is AM but divtime is PM
+    if (currentAM == true && divAM == false){
+      $(`#hour-${i}`).addClass("future")
+    }
+    //If current time is PM but divtime is AM
+    if (currentAM == false && divAM == true){
+      $(`#hour-${i}`).addClass("past")
+    } 
+  }
+
+  //hours 1-5pm
+  for (var i=1 ; i < 6; i++){
+    //check if given div hour is AM/PM
+    if ($(`#hour-${i}`).text().trim().substr(-2) == "AM"){
+      var divAM = true
+    }
+    else{
+      var divAM = false
+    }
+
+    // If both are AM/PM, compare numbers
+    if (currentAM === divAM){
+      if(Number($(`#hour-${i}`).attr('id').substr(5)) < Number(currenthournumber)){
+        (`#hour-${i}`).addClass("past")
+      }
+      else if (Number($(`#hour-${i}`).attr('id').substr(5)) == Number(currenthournumber)){
+        $(`#hour-${i}`).addClass("present")
+      }
+      else if (Number($(`#hour-${i}`).attr('id').substr(5)) > Number(currenthournumber)){
+        $(`#hour-${i}`).addClass("future")
+      }
+    }
+    //If current time is AM but divtime is PM
+    if (currentAM == true && divAM == false){
+      $(`#hour-${i}`).addClass("future")
+    }
+    //If current time is PM but divtime is AM
+    if (currentAM == false && divAM == true){
+      $(`#hour-${i}`).addClass("past")
+    }
+  }
 
 
   // TODO: Add code to get any user input that was saved in localStorage and set
