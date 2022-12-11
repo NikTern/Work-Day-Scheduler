@@ -87,7 +87,7 @@ $(function () {
     // If both are AM/PM, compare numbers
     if (currentAM === divAM){
       if(Number($(`#hour-${i}`).attr('id').substr(5)) < Number(currenthournumber)){
-        (`#hour-${i}`).addClass("past")
+        $(`#hour-${i}`).addClass("past")
       }
       else if (Number($(`#hour-${i}`).attr('id').substr(5)) == Number(currenthournumber)){
         $(`#hour-${i}`).addClass("present")
